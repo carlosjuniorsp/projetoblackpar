@@ -1,0 +1,27 @@
+{
+  "name": "projetoblackpar",
+  "version": "1.0.0",
+  "description": "senior programmer project",
+  "main": "service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosjuniorsp/projetoblackpar.git"
+  },
+  "keywords": [
+    "project",
+    "nodejs",
+    "php"
+  ],
+  "author": "Carlos Junior",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosjuniorsp/projetoblackpar/issues"
+  },
+  "homepage": "https://github.com/carlosjuniorsp/projetoblackpar#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
