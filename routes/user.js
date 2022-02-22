@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/:id", (req, res, next) => {
+router.get("/list/:id", (req, res, next) => {
   const id = req.params.id;
   res.status(200).send({
     msg: "Deu certo o list",
