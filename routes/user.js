@@ -3,19 +3,27 @@ const router = express.Router();
 const connection = require("../connection").pool;
 
 router.get("/list/:id", (req, res, next) => {
-  const id = req.params.id;
-  res.status(200).send({
-    msg: "Deu certo o list",
-    id: id,
+  connection.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({ error: error });
+    }
+    conn.query(
+      "SELECT * FROM users WHERE id=?",
+      [req.params.id],
+      (error, result, field) => {
+        if (error) {
+          return res.status(500).send({ error: error });
+        }
+        return res.status(200).send({ response: result });
+      }
+    );
   });
 });
 
 router.post("/register", (req, res, next) => {
   connection.getConnection((error, conn) => {
     if (error) {
-      return res.status(500).send({
-        error: error,
-      });
+      return res.status(500).send({ error: error });
     }
     conn.query(
       "INSERT INTO users (name, last_name, type, phone, email, password) VALUES (?,?,?,?,?,?)",
@@ -30,10 +38,7 @@ router.post("/register", (req, res, next) => {
       (error, result, field) => {
         conn.release();
         if (error) {
-          return res.status(500).send({
-            error: error,
-            response: null,
-          });
+          return res.status(500).send({ error: error, response: null });
         }
 
         res.status(201).send({
