@@ -9,9 +9,14 @@ router.get("/list/:id", (req, res, next) => {
   });
 });
 
-router.post("/", (req, res, next) => {
-  res.status(200).send({
-    msg: "deu certo post",
+router.post("/register", (req, res, next) => {
+  const user = {
+    name: req.body.name,
+    telefone: req.body.phone,
+  };
+  res.status(201).send({
+    msg: "usuário cadastrado",
+    user: user,
   });
 });
 
