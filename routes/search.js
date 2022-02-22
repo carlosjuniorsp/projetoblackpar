@@ -12,7 +12,8 @@ router.get("/:title/:maxResults", (req, res, next) => {
         q: req.params.title,
         part: 'snippet',
         fields: 'items(id(videoId), snippet(title))',
-        maxResults: req.params.maxResults
+        maxResults: req.params.maxResults,
+        type: 'video'
     }, function (err, result) {
         if (err) {
             console.log(err);
