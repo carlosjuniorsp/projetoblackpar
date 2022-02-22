@@ -7,10 +7,12 @@ const youtube = new google.youtube({
     auth: 'AIzaSyAZNQEd9UnGbOWyb4vR0PZyJwZums2zr_4'
 });
 
-router.get("/:title", (req, res, next) => {
+router.get("/:title/:maxResults", (req, res, next) => {
     youtube.search.list({
         q: req.params.title,
         part: 'snippet',
+        fields: 'items(id(videoId))',
+        maxResults: req.params.maxResults
     }, function (err, result) {
         if (err) {
             console.log(err);
