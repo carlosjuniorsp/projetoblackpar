@@ -2,17 +2,11 @@ const express = require("express");
 const api = express();
 const morgan = require("morgan");
 
-api.use(morgan("dev"));
+//Routes
 const users = require("./routes/user");
 
-api.use((newError, req, res, next) => {
-    res.status(newError.status || 500);
-    return res.send({
-        error: {
-            message: newError.message,
-        },
-    });
-});
+api.use(morgan("dev"));
+api.use("/user", users);
 
 api.use((error, req, next) => {
   const reqError = new Error("Dados não encontrados!");
@@ -20,7 +14,12 @@ api.use((error, req, next) => {
   next(reqError);
 });
 
-//Routes 
-api.use("/user", users);
-
+api.use((newError, req, res, next) => {
+  res.status(newError.status || 500);
+  return res.send({
+    error: {
+      message: newError.message,
+    },
+  });
+});
 module.exports = api;
