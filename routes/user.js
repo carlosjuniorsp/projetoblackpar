@@ -12,8 +12,13 @@ router.get("/list/:id", (req, res, next) => {
 
 router.post("/register", (req, res, next) => {
   connection.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({
+        error: error,
+      });
+    }
     conn.query(
-      'INSERT INTO users (name, last_name, type, phone, email, password) VALUES (?,?,?,?,?,?)',
+      "INSERT INTO users (name, last_name, type, phone, email, password) VALUES (?,?,?,?,?,?)",
       [
         req.body.name,
         req.body.last_name,
