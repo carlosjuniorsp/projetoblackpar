@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const connection = require("../connection").pool;
 
 router.get("/list/:id", (req, res, next) => {
   const id = req.params.id;
@@ -10,13 +11,32 @@ router.get("/list/:id", (req, res, next) => {
 });
 
 router.post("/register", (req, res, next) => {
-  const user = {
-    name: req.body.name,
-    telefone: req.body.phone,
-  };
-  res.status(201).send({
-    msg: "usuário cadastrado",
-    user: user,
+  connection.getConnection((error, conn) => {
+    conn.query(
+      'INSERT INTO users (name, last_name, type, phone, email, password) VALUES (?,?,?,?,?,?)',
+      [
+        req.body.name,
+        req.body.last_name,
+        req.body.type,
+        req.body.phone,
+        req.body.email,
+        req.body.password,
+      ],
+      (error, result, field) => {
+        conn.release();
+        if (error) {
+          return res.status(500).send({
+            error: error,
+            response: null,
+          });
+        }
+
+        res.status(201).send({
+          msg: "Usuário cadastrado",
+          userId: result.insertId,
+        });
+      }
+    );
   });
 });
 
