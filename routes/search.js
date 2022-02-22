@@ -11,7 +11,7 @@ router.get("/:title/:maxResults", (req, res, next) => {
     youtube.search.list({
         q: req.params.title,
         part: 'snippet',
-        fields: 'items(id(videoId))',
+        fields: 'items(id(videoId), snippet(title))',
         maxResults: req.params.maxResults
     }, function (err, result) {
         if (err) {
