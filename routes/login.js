@@ -20,14 +20,14 @@ router.post("/", (req, res, next) => {
           return res.status(500).send({ error: error });
         }
         if (results.length < 1) {
-          return res.status(401).send({ msg: "Falha na autenticação" });
+          return res.status(401).send({ msg: "Falha na autenticação", token: null });
         }
         bcrypt.compare(
           req.body.password,
           results[0].password,
           (err, result) => {
             if (err) {
-              return res.status(401).send({ msg: "Falha na autenticação" });
+              return res.status(401).send({ msg: "Falha na autenticação", token: null });
             }
             if (result) {
               const token = jwt.sign(
@@ -43,9 +43,9 @@ router.post("/", (req, res, next) => {
               );
               return res
                 .status(200)
-                .send({ msg: "Login efetuado", token: token });
+                .send({ user: results[0].name, token: token, type: results[0].type });
             }
-            return res.status(401).send({ msg: "Falha na autenticação" });
+            return res.status(401).send({ msg: "Falha na autenticação", token: null });
           }
         );
       }
