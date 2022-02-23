@@ -15,7 +15,6 @@ router.post("/", (req, res, next) => {
       "SELECT email, password,id, name, type FROM users WHERE email = ?",
       [req.body.email],
       (error, results, field) => {
-          console.log(req.body.email, req.body.password);
         conn.release();
         if (error) {
           return res.status(500).send({ error: error });

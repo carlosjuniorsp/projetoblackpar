@@ -8,7 +8,6 @@ use GuzzleHttp\Exception\ClientException;
 
 class UserController extends Controller
 {
-
     /**
      * login a newly created resource in storage.
      * 
@@ -18,9 +17,10 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
+            $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
             $response = $client->post(
-                'http://localhost:3000/login',
+                $base_url.'/login',
                 array(
                     'form_params' => array(
                         'email' => $request->input('email'),
@@ -30,7 +30,41 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                return view('index');
+                return redirect('/dasboard');
+            }
+        } catch (ClientException $e) {
+            echo Psr7\Message::toString($e->getResponse());
+        }
+    }
+
+    /**
+     * create a newly created resource in storage.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        
+        try {
+            $base_url = env('APP_URL');
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post(
+                $base_url.'/user/register/',
+                array(
+                    'form_params' => array(
+                        'name' => $request->input('name'),
+                        'email' => $request->input('email'),
+                        'password' => $request->input('password'),
+                        'phone' => $request->input('phone'),
+                        'last_name' => $request->input('last_name'),
+                        'type' => $request->input('type')
+                    )
+                )
+            );
+
+            if ($response->getBody()) {
+                return redirect('/dasboard');
             }
         } catch (ClientException $e) {
             echo Psr7\Message::toString($e->getResponse());
