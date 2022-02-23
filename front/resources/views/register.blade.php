@@ -14,16 +14,17 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail">Email</label>
-                <input type="email" class="form-control" required name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" class="form-control" required name="email" id="exampleInputEmail1"
+                    aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword">Senha</label>
                 <input type="password" class="form-control" required name="password" id="exampleInputPassword">
             </div>
             <div class="form-group">
-              <label for="exampleInputPhone">Telefone</label>
-              <input type="phone" maxlength="11" class="form-control" required name="phone" id="exampleInputPhone">
-          </div>
+                <label for="exampleInputPhone">Telefone</label>
+                <input type="phone" maxlength="11" class="form-control" required name="phone" id="exampleInputPhone">
+            </div>
             <div class="form-group">
                 <label for="exampleInputType">Admin</label>
                 <select class="form-control" required name="type">
@@ -33,6 +34,12 @@
             </div>
             <br />
             <button type="submit" class="btn btn-primary">Salvar</button>
+            <br /><br />
+            @if ($msg ?? '')
+                <div class="alert alert-primary" role="alert">
+                    {{ $msg ?? '' }}
+                </div>
+            @endif
         </form>
     </div>
 @stop

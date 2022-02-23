@@ -20,7 +20,7 @@ class UserController extends Controller
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
             $response = $client->post(
-                $base_url.'/login',
+                $base_url . '/login',
                 array(
                     'form_params' => array(
                         'email' => $request->input('email'),
@@ -30,7 +30,8 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                return redirect('/dasboard');
+                $data = json_decode($response->getBody()->getContents(), true);
+                return view('/index', ['user' => $data['user'], 'token' => $data['token'], 'type' => $data['type']]);
             }
         } catch (ClientException $e) {
             echo Psr7\Message::toString($e->getResponse());
@@ -49,7 +50,7 @@ class UserController extends Controller
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
             $response = $client->post(
-                $base_url.'/user/register/',
+                $base_url . '/user/register/',
                 array(
                     'form_params' => array(
                         'name' => $request->input('name'),
@@ -63,10 +64,12 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                echo $response->getBody()->getContents();
+                $msg = json_decode($response->getBody()->getContents(), true);
+                return view('/register', ['msg' => $msg['msg']]);
             }
         } catch (ClientException $e) {
-            echo Psr7\Message::toString($e->getResponse());
+            $error = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return view('/register', ['msg' => $error['error']]);
         }
     }
 }
