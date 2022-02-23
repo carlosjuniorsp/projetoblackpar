@@ -81,7 +81,7 @@ class UserController extends Controller
     }
 
     /**
-     * show a newly showd resource in storage.
+     * show all users
      * 
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -105,7 +105,7 @@ class UserController extends Controller
     }
 
     /**
-     * show a newly showd resource in storage.
+     * list a user
      * 
      * @param int $id
      * @return \Illuminate\Http\Response
@@ -129,7 +129,7 @@ class UserController extends Controller
     }
 
     /**
-     * show a newly showd resource in storage.
+     * updated a user
      * 
      * @param \Illuminate\Http\Request $request
      * @param int $id
@@ -162,6 +162,11 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * delete a user
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function delete($id)
     {
         try {
