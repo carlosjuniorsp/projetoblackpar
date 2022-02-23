@@ -8,12 +8,15 @@
                 </li>
             @endif
         </span>
+        <li class="nav-item">
+            <a class="nav-link active" href="/list-user">Home</a>
+        </li>
         @if (Session::has('type') && Session::get('type') == 0)
             <li class="nav-item">
                 <a class="nav-link active" href="/register">Cadastro</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/list-user">Edição</a>
+                <a class="nav-link" href="/list-user">Gerenciamento</a>
             </li>
         @endif
         <li class="nav-item">

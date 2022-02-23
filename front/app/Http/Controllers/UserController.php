@@ -38,7 +38,7 @@ class UserController extends Controller
                         'type' => $data['type']
                     ]
                 );
-                return view('menu');
+                return redirect('/list-user');
             }
         } catch (ClientException $e) {
             echo Psr7\Message::toString($e->getResponse());
@@ -72,7 +72,7 @@ class UserController extends Controller
 
             if ($response->getBody()) {
                 $msg = json_decode($response->getBody()->getContents(), true);
-                return view('/register', ['msg' => $msg['msg']]);
+                return redirect('/list-user');
             }
         } catch (ClientException $e) {
             $error = json_decode($e->getResponse()->getBody()->getContents(), true);
@@ -151,7 +151,23 @@ class UserController extends Controller
                     )
                 )
             );
-           
+
+            if ($response->getBody()) {
+                $msg = json_decode($response->getBody()->getContents(), true);
+                return redirect('/list-user');
+            }
+        } catch (ClientException $e) {
+            $error = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return redirect('/list-user');
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $base_url = env('APP_URL');
+            $client = new \GuzzleHttp\Client();
+            $response = $client->delete($base_url . '/user/delete/' . $id);
             if ($response->getBody()) {
                 $msg = json_decode($response->getBody()->getContents(), true);
                 return redirect('/list-user');
