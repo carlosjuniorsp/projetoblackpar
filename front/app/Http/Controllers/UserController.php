@@ -45,7 +45,6 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        
         try {
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
@@ -64,7 +63,7 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                return redirect('/dasboard');
+                echo $response->getBody()->getContents();
             }
         } catch (ClientException $e) {
             echo Psr7\Message::toString($e->getResponse());
