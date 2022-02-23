@@ -18,6 +18,9 @@ Route::get('/register', function () {
     return view('register');
 });
 
+Route::get('/search', function () {
+    return view('search');
+});
 
 Route::post('/dashboard', 'App\Http\Controllers\UserController@login')->name('dashboard');
 Route::post('register', 'App\Http\Controllers\UserController@create')->name('register');

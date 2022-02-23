@@ -20,7 +20,7 @@
             </li>
         @endif
         <li class="nav-item">
-            <a class="nav-link" href="#">Buscar Vídeos</a>
+            <a class="nav-link" href="/search">Buscar Vídeos</a>
         </li>
     </ul>
 @stop

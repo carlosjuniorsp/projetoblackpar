@@ -10,11 +10,11 @@
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputNamed">Nome</label>
-                                <input type="Named" class="form-control" required name="name" id="exampleInputNamed">
+                                <input type="text" class="form-control" required name="name" id="exampleInputNamed">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputLastName">Sobre Nome</label>
-                                <input type="LastName" class="form-control" required name="last_name"
+                                <input type="text" class="form-control" required name="last_name"
                                     id="exampleInputLastName">
                             </div>
                             <div class="form-group">
