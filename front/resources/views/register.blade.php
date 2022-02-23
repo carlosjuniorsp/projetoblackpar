@@ -1,4 +1,4 @@
-@extends('header')
+@extends('menu')
 @section('conteudo')
     <div class="container" style="margin-top:20px">
         <h4>Cadastro de usuário</h4>
@@ -28,8 +28,8 @@
             <div class="form-group">
                 <label for="exampleInputType">Admin</label>
                 <select class="form-control" required name="type">
-                    <option value="1">Sim</option>
-                    <option value="2">Não</option>
+                    <option value="0">Sim</option>
+                    <option value="1">Não</option>
                 </select>
             </div>
             <br />

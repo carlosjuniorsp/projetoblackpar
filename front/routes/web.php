@@ -7,12 +7,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dasboard', function () {
-    return view('index');
+    return view('menu');
 });
 
 Route::get('/register', function () {
     return view('register');
 });
 
-Route::post('user/login', 'App\Http\Controllers\UserController@login')->name('login');
+Route::post('/dashboard', 'App\Http\Controllers\UserController@login')->name('dashboard');
 Route::post('user/register', 'App\Http\Controllers\UserController@create')->name('register');

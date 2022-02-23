@@ -1,14 +1,14 @@
 @extends('header')
-@section('conteudo')
+@section('menu')
     <ul class="nav justify-content-end">
         <span>
-            @if($user ?? '')
-            <li class="nav-item">
-                <a class="nav-link disabled" >Olá {{$user ?? ''}}</a>
-            </li>
+            @if (Session::has('user'))
+                <li class="nav-item">
+                    <a class="nav-link disabled">Olá {{ Session::get('user') }}</a>
+                </li>
             @endif
         </span>
-        @if($type == 1 ?? '')
+        @if (Session::has('type') && Session::get('type') == 0)
             <li class="nav-item">
                 <a class="nav-link active" href="/register">Cadastro</a>
             </li>

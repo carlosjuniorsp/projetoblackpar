@@ -31,7 +31,14 @@ class UserController extends Controller
 
             if ($response->getBody()) {
                 $data = json_decode($response->getBody()->getContents(), true);
-                return view('/index', ['user' => $data['user'], 'token' => $data['token'], 'type' => $data['type']]);
+                session(
+                    [
+                        'token' => $data['token'],
+                        'user' => $data['user'],
+                        'type' => $data['type']
+                    ]
+                );
+                return view('menu');
             }
         } catch (ClientException $e) {
             echo Psr7\Message::toString($e->getResponse());

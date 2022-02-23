@@ -9,6 +9,7 @@
     <title>Projeto</title>
 </head>
 <body>
+    @yield('menu');
     <section class="content">
         @yield('conteudo')
     </section>
