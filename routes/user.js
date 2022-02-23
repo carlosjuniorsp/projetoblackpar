@@ -13,10 +13,11 @@ router.get("/list/:id", (req, res, next) => {
       "SELECT * FROM users WHERE id=?",
       [req.params.id],
       (error, result, field) => {
+        conn.release();
         if (error) {
           return res.status(500).send({ error: error });
         }
-        return res.status(200).send({ response: result });
+        return res.status(200).send({result});
       }
     );
   });
@@ -28,10 +29,11 @@ router.get("/list", (req, res, next) => {
       return res.status(500).send({ error: error });
     }
     conn.query("SELECT * FROM users", (error, result, field) => {
+      conn.release();
       if (error) {
         return res.status(500).send({ error: error });
       }
-      return res.status(200).send({ response: result });
+      return res.status(200).send({ result });
     });
   });
 });
@@ -123,17 +125,16 @@ router.put("/update/:id", (req, res, next) => {
           conn.release();
           return res.status(409).send({ error: "Usuário não encontrado!" });
         } else {
+          console.log(req.body.email);
           bcrypt.genSalt(saltRounds, function (err, salt) {
             bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
               conn.query(
-                "UPDATE users SET name=?, last_name=?, type=?, phone=?, email=?, password=?",
+                "UPDATE users SET name=?, last_name=?, type=?, phone=?",
                 [
                   req.body.name,
                   req.body.last_name,
                   req.body.type,
                   req.body.phone,
-                  req.body.email,
-                  hash,
                   req.params.id,
                 ],
                 (error, result, field) => {

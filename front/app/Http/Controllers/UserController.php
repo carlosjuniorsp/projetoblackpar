@@ -79,4 +79,48 @@ class UserController extends Controller
             return view('/register', ['msg' => $error['error']]);
         }
     }
+
+    /**
+     * show a newly showd resource in storage.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show()
+    {
+        try {
+            $base_url = env('APP_URL');
+            $client = new \GuzzleHttp\Client();
+            $response = $client->get($base_url . '/user/list');
+
+
+            if ($response->getBody()) {
+                $msg = json_decode($response->getBody()->getContents(), true);
+                return view('/listUser', ['msg' => $msg['result']]);
+            }
+        } catch (ClientException $e) {
+            $error = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return view('/register', ['msg' => $error['error']]);
+        }
+    }
+
+    public function list(int $id)
+    {
+        try {
+            $base_url = env('APP_URL');
+            $client = new \GuzzleHttp\Client();
+            $response = $client->get($base_url . '/user/list/'.$id);
+
+            if ($response->getBody()) {
+                $users = json_decode($response->getBody()->getContents(), true);
+                return view('/edit', ['users' => $users['result'][0]]);
+            }
+        } catch (ClientException $e) {
+            $error = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return view('/edit', ['msg' => $error['error']]);
+        }
+    }
+    public function update($id) {
+        dd($id);
+    }
 }

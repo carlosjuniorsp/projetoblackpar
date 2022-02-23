@@ -13,7 +13,7 @@
                 <a class="nav-link active" href="/register">Cadastro</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Edição</a>
+                <a class="nav-link" href="/list-user">Edição</a>
             </li>
         @endif
         <li class="nav-item">
