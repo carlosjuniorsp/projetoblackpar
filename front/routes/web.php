@@ -14,7 +14,8 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/dashboard', 'App\Http\Controllers\UserController@login')->name('dashboard');
+
+Route::post('/dashboard', 'App\Http\Controllers\UserController@login')->name('dashboard');
 Route::post('register', 'App\Http\Controllers\UserController@create')->name('register');
 Route::get('/list/{id}', 'App\Http\Controllers\UserController@list')->name('list');
 Route::post('/edit/{id}', 'App\Http\Controllers\UserController@update')->name('edit');

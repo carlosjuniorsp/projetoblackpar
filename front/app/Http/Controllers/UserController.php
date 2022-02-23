@@ -104,13 +104,20 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * show a newly showd resource in storage.
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function list(int $id)
     {
         try {
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
-            $response = $client->get($base_url . '/user/list/'.$id);
-
+            $response = $client->get(
+                $base_url . '/user/list/' . $id
+            );
             if ($response->getBody()) {
                 $users = json_decode($response->getBody()->getContents(), true);
                 return view('/edit', ['users' => $users['result'][0]]);
@@ -120,7 +127,38 @@ class UserController extends Controller
             return view('/edit', ['msg' => $error['error']]);
         }
     }
-    public function update($id) {
-        dd($id);
+
+    /**
+     * show a newly showd resource in storage.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $base_url = env('APP_URL');
+            $client = new \GuzzleHttp\Client();
+            $response = $client->put(
+                $base_url . '/user/update/' . $id,
+                array(
+                    'form_params' => array(
+                        'name' => $request->input('name'),
+                        'phone' => $request->input('phone'),
+                        'last_name' => $request->input('last_name'),
+                        'type' => $request->input('type')
+                    )
+                )
+            );
+           
+            if ($response->getBody()) {
+                $msg = json_decode($response->getBody()->getContents(), true);
+                return redirect('/list-user');
+            }
+        } catch (ClientException $e) {
+            $error = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return redirect('/list-user');
+        }
     }
 }

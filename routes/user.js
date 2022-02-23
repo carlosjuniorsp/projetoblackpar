@@ -17,7 +17,7 @@ router.get("/list/:id", (req, res, next) => {
         if (error) {
           return res.status(500).send({ error: error });
         }
-        return res.status(200).send({result});
+        return res.status(200).send({ result });
       }
     );
   });
@@ -118,40 +118,36 @@ router.put("/update/:id", (req, res, next) => {
       return res.status(500).send({ error: error });
     }
     conn.query(
-      "SELECT id FROM users WHERE id=?",
+      "SELECT * FROM users WHERE id=?",
       [req.params.id],
       (error, result, field) => {
         if (result.length < 1) {
           conn.release();
           return res.status(409).send({ error: "Usuário não encontrado!" });
         } else {
-          console.log(req.body.email);
-          bcrypt.genSalt(saltRounds, function (err, salt) {
-            bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
-              conn.query(
-                "UPDATE users SET name=?, last_name=?, type=?, phone=?",
-                [
-                  req.body.name,
-                  req.body.last_name,
-                  req.body.type,
-                  req.body.phone,
-                  req.params.id,
-                ],
-                (error, result, field) => {
-                  conn.release();
-                  if (error) {
-                    return res
-                      .status(500)
-                      .send({ error: error, response: null });
-                  }
-
-                  res.status(201).send({
-                    msg: "Usuário atualizado com sucesso!",
-                    userId: result.insertId,
-                  });
+          bcrypt.hash(req.body.password, 10, function (err, hash) {
+            conn.query(
+              "UPDATE users SET name=?, last_name=?, type=?, phone=? WHERE id=?",
+              [
+                req.body.name,
+                req.body.last_name,
+                req.body.type,
+                req.body.phone,
+                req.params.id,
+              ],
+              (error, results, field) => {
+                conn.release();
+                if (error) {
+                  return res
+                    .status(500)
+                    .send({ error: error, response: null });
                 }
-              );
-            });
+
+                res.status(201).send({
+                  msg: "Usuário atualizado com sucesso!",
+                });
+              }
+            );
           });
         }
       }
