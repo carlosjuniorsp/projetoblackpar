@@ -31,6 +31,9 @@ class UserController extends Controller
 
             if ($response->getBody()) {
                 $data = json_decode($response->getBody()->getContents(), true);
+
+                $request->session()->reflash();
+
                 session(
                     [
                         'token' => $data['token'],
@@ -153,12 +156,12 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                $msg = json_decode($response->getBody()->getContents(), true);
+                $request->session()->reflash();
                 return redirect('/list-user');
             }
         } catch (ClientException $e) {
             $error = json_decode($e->getResponse()->getBody()->getContents(), true);
-            return redirect('/list-user');
+            return redirect('/list-user', ['error' => $error]);
         }
     }
 
