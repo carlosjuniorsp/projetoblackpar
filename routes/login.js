@@ -10,7 +10,7 @@ router.post("/", (req, res, next) => {
       return res.status(500).send({ error: error });
     }
     conn.query(
-      "SELECT * FROM users WHERE email = ?",
+      "SELECT email, password FROM users WHERE email = ?",
       [req.body.email],
       (error, results, field) => {
         conn.release();
@@ -20,8 +20,14 @@ router.post("/", (req, res, next) => {
         if (results.length < 1) {
           return res.status(401).send({ msg: "Falha na autenticação" });
         }
-        bcrypt.compare(req.body.password, results[0].password, (err, res) => {
-          console.log(req.body.password, results[0].password, res, req.body.email);
+        bcrypt.compare(req.body.password, results[0].password, (err, result) => {
+          if (err) {
+            return res.status(401).send({ msg: "Falha na autenticação" });
+          }
+          if (result) {
+            return res.status(200).send({ msg: "Autenticado" });
+          }
+          return res.status(401).send({ msg: "Falha na autenticação" });
         });
       }
     );
