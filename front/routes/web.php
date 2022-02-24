@@ -38,4 +38,4 @@ Route::post('/edit/{id}', 'App\Http\Controllers\UserController@update')->name('e
 Route::get('/delete/{id}', 'App\Http\Controllers\UserController@delete')->name('delete');
 Route::post('/search-api', 'App\Http\Controllers\SearchController@search')->name('search-api');
 Route::get('/logout', 'App\Http\Controllers\UserController@logout')->name('logout');
-Route::get('/history', 'App\Http\Controllers\HistoryController@list')->name('history');
+Route::get('/history/{id}', 'App\Http\Controllers\HistoryController@list')->name('history');

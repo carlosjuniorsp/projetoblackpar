@@ -39,7 +39,7 @@
                         @foreach ($data as $video)
                             <div class="col-sm">
                                 <span>{{ $video['snippet']['title'] }}</span><br />
-                                <iframe width="350" height="115"
+                                <iframe width="450" height="215"
                                     src="https://www.youtube.com/embed/{{ $video['id']['videoId'] }}"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

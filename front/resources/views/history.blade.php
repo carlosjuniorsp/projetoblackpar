@@ -6,7 +6,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase mb-0">Histórico de busca</h5>
+                            @if (Session::has('type') == 0)
+                                )
+                                <h5 class="card-title text-uppercase mb-0">Histórico de busca do usuário</h5>
+                            @else
+                                <h5 class="card-title text-uppercase mb-0">Meu histórico de busca</h5>
+                            @endif
                         </div>
                         <div class="table-responsive">
                             <table class="table no-wrap user-table mb-0">
@@ -20,12 +25,13 @@
                                 <tbody>
                                     @foreach ($data ?? '' as $history)
                                         <tr>
-                                            <td class="pl-4">{{$history['id']}}</td>
+                                            <td class="pl-4">{{ $history['id'] }}</td>
                                             <td>
                                                 <h5 class="font-medium mb-0"> {{ $history['title'] }}</h5>
                                             </td>
                                             <td>
-                                                <span class="text-muted">{{ date('d/m/Y', strtotime($history['date'])); }} 
+                                                <span
+                                                    class="text-muted">{{ date('d/m/Y', strtotime($history['date'])) }}
                                                 </span><br>
                                             </td>
                                         </tr>

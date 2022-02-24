@@ -12,16 +12,14 @@ class HistoryController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list($id)
     {
-
         try {
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
             $validationToken = session()->get('token');
-            $idUser = session()->get('id');
             $response = $client->get(
-                $base_url . '/history/' . $idUser,
+                $base_url . '/history/' . $id,
                 [
                     'headers'  => [
                         'Authorization' => 'Bearer ' . $validationToken

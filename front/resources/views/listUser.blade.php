@@ -25,7 +25,7 @@
                                     <tbody>
                                         @foreach ($msg as $data)
                                             <tr>
-                                                <td class="pl-4">1</td>
+                                                <td class="pl-4">{{ $data['id'] }}</td>
                                                 <td>
                                                     <h5 class="font-medium mb-0"> {{ $data['name'] }}</h5>
                                                 </td>
@@ -49,7 +49,7 @@
                                                     <a href="{{ route('list', ['id' => $data['id'] ?? '']) }}"
                                                         class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
                                                             class="fa fa-edit" title="Editar"></i> </a>
-                                                    <a href="#"
+                                                    <a href="/history/{{ $data['id'] }}"
                                                         class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
                                                         title="Ver histórico" data-original-title="view"><i
                                                             class="far fa-eye"></i></a>

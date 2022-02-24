@@ -204,8 +204,9 @@ class UserController extends Controller
     /**
      * Logout user
      */
-    public function logout(){
-        session()->forget('token');
+    public function logout()
+    {
+        session()->forget(['token', 'id']);
         return redirect('/');
     }
 }
