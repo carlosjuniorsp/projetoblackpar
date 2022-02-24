@@ -99,6 +99,7 @@ router.delete("/delete/:id", verifyUser, (req, res, next) => {
             "DELETE FROM users WHERE id=?",
             [req.params.id],
             (error, result, field) => {
+              conn.release()
               if (error) {
                 return res.status(500).send({ error: error });
               }
@@ -107,7 +108,6 @@ router.delete("/delete/:id", verifyUser, (req, res, next) => {
                 .send({ msg: "Usuário deletado com sucesso!" });
             }
           );
-          conn.release();
         }
       }
     );
@@ -150,7 +150,6 @@ router.put("/update/:id", verifyUser, (req, res, next) => {
                 });
               }
             );
-            conn.release();
           });
         }
       }
