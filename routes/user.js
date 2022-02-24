@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection").pool;
+const verifyUser = require('../middleware/verify');
 
 const bcrypt = require("bcrypt");
 
@@ -38,7 +39,7 @@ router.get("/list", (req, res, next) => {
   });
 });
 
-router.post("/register", (req, res, next) => {
+router.post("/register", verifyUser, (req, res, next) => {
   connection.getConnection((error, conn) => {
     if (error) {
       return res.status(500).send({ error: error });
@@ -81,7 +82,7 @@ router.post("/register", (req, res, next) => {
   });
 });
 
-router.delete("/delete/:id", (req, res, next) => {
+router.delete("/delete/:id", verifyUser, (req, res, next) => {
   connection.getConnection((error, conn) => {
     if (error) {
       return res.status(500).send({ error: error });
@@ -92,7 +93,7 @@ router.delete("/delete/:id", (req, res, next) => {
       (error, result, field) => {
         if (result.length < 1) {
           conn.release();
-          return res.status(409).send({ error: "Usuário não encontrado!" });
+          return res.status(409).send({ msg: "Usuário não encontrado!" });
         } else {
           conn.query(
             "DELETE FROM users WHERE id=?",
@@ -103,7 +104,7 @@ router.delete("/delete/:id", (req, res, next) => {
               }
               return res
                 .status(200)
-                .send({ message: "Usuário deletado com sucesso!" });
+                .send({ msg: "Usuário deletado com sucesso!" });
             }
           );
         }
@@ -112,7 +113,7 @@ router.delete("/delete/:id", (req, res, next) => {
   });
 });
 
-router.put("/update/:id", (req, res, next) => {
+router.put("/update/:id", verifyUser, (req, res, next) => {
   connection.getConnection((error, conn) => {
     if (error) {
       return res.status(500).send({ error: error });

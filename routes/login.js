@@ -35,6 +35,7 @@ router.post("/", (req, res, next) => {
                   id: results[0].id,
                   name: results[0].name,
                   email: results[0].email,
+                  type: results[0].type,
                 },
                 config.JWT_USER_TOKEN,
                 {

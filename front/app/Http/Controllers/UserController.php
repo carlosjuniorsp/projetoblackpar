@@ -32,8 +32,6 @@ class UserController extends Controller
             if ($response->getBody()) {
                 $data = json_decode($response->getBody()->getContents(), true);
 
-                $request->session()->reflash();
-
                 session(
                     [
                         'token' => $data['token'],
@@ -156,7 +154,7 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                $request->session()->reflash();
+                $request->session()->put('type', $request->input('type'));
                 return redirect('/list-user');
             }
         } catch (ClientException $e) {
