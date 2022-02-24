@@ -46,7 +46,8 @@ class UserController extends Controller
                 return redirect('/list-user');
             }
         } catch (ClientException $e) {
-            echo Psr7\Message::toString($e->getResponse());
+            $error = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return view('/login', ['msg' => $error['msg']]);
         }
     }
 
