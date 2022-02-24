@@ -6,15 +6,15 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/login', function () {
+    return view('login');
+});
+
 Route::middleware('verifyLogin')->group(function () {
     Route::middleware('Check')->group(function () {
 
         Route::get('/welcome', function () {
             return view('welcome');
-        });
-
-        Route::get('/login', function () {
-            return view('login');
         });
 
         Route::get('/dasboard', function () {
