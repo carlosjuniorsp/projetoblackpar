@@ -2,7 +2,7 @@
 @section('menu')
     <ul class="nav justify-content-end">
         <span>
-            @if (Session::has('user'))
+            @if (Session::has('token'))
                 <li class="nav-item">
                     <a class="nav-link disabled">Olá {{ Session::get('user') }}</a>
                 </li>

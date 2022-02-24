@@ -1,6 +1,10 @@
 @extends('menu')
 @section('conteudo')
-    <div class="container">
-        <h1>Página inicial</h1>
-    </div>
+    @if (!Session::has('user'))
+        {{ Redirect::to('/') }}
+    @else
+        <div class="container">
+            <h1>Página inicial</h1>
+        </div>
+    @endif
 @stop
