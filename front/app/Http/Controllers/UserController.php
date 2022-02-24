@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Contracts\Session\Session;
 
 class UserController extends Controller
 {
@@ -56,19 +57,23 @@ class UserController extends Controller
     {
         try {
             $base_url = env('APP_URL');
+            $validationToken = session()->get('token');
             $client = new \GuzzleHttp\Client();
             $response = $client->post(
                 $base_url . '/user/register/',
-                array(
-                    'form_params' => array(
+                [
+                    'form_params' => [
                         'name' => $request->input('name'),
                         'email' => $request->input('email'),
                         'password' => $request->input('password'),
                         'phone' => $request->input('phone'),
                         'last_name' => $request->input('last_name'),
-                        'type' => $request->input('type')
-                    )
-                )
+                        'type' => $request->input('type'),
+                    ],
+                    'headers'  => [
+                        'Authorization' => 'Bearer ' . $validationToken
+                    ]
+                ],
             );
 
             if ($response->getBody()) {
@@ -141,16 +146,20 @@ class UserController extends Controller
         try {
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
+            $validationToken = session()->get('token');
             $response = $client->put(
                 $base_url . '/user/update/' . $id,
-                array(
-                    'form_params' => array(
+                [
+                    'form_params' => [
                         'name' => $request->input('name'),
                         'phone' => $request->input('phone'),
                         'last_name' => $request->input('last_name'),
                         'type' => $request->input('type')
-                    )
-                )
+                    ],
+                    'headers'  => [
+                        'Authorization' => 'Bearer ' . $validationToken
+                    ]
+                ]
             );
 
             if ($response->getBody()) {
@@ -173,7 +182,14 @@ class UserController extends Controller
         try {
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
-            $response = $client->delete($base_url . '/user/delete/' . $id);
+            $validationToken = session()->get('token');
+            $response = $client->delete(
+                $base_url . '/user/delete/' . $id,
+                [
+                    'headers'  => ['Authorization' => 'Bearer ' . $validationToken]
+                ]
+            );
+
             if ($response->getBody()) {
                 $msg = json_decode($response->getBody()->getContents(), true);
                 return redirect('/list-user');
