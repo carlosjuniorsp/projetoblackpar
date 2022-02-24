@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Contracts\Session\Session;
 
 class UserController extends Controller
 {
@@ -202,6 +201,9 @@ class UserController extends Controller
             return redirect('/list-user');
         }
     }
+    /**
+     * Logout user
+     */
     public function logout(){
         session()->forget('token');
         return redirect('/');

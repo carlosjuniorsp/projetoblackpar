@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection").pool;
+const verifyUser = require('../middleware/verify');
 
-router.get("/:id", (req, res, next) => {
-    console.log(req.params.id)
+router.get("/:id", verifyUser, (req, res, next) => {
     connection.getConnection((error, conn) => {
         if (error) {
             return res.status(500).send({ error: error });

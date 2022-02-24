@@ -26,6 +26,10 @@ Route::get('/search', function () {
     return view('search');
 })->middleware('verifyLogin');
 
+Route::get('/history', function () {
+    return view('history');
+})->middleware('verifyLogin');
+
 Route::get('/list-user', 'App\Http\Controllers\UserController@show');
 Route::post('/login', 'App\Http\Controllers\UserController@login')->name('login');
 Route::post('register', 'App\Http\Controllers\UserController@create')->name('register');
@@ -34,3 +38,4 @@ Route::post('/edit/{id}', 'App\Http\Controllers\UserController@update')->name('e
 Route::get('/delete/{id}', 'App\Http\Controllers\UserController@delete')->name('delete');
 Route::post('/search-api', 'App\Http\Controllers\SearchController@search')->name('search-api');
 Route::get('/logout', 'App\Http\Controllers\UserController@logout')->name('logout');
+Route::get('/history', 'App\Http\Controllers\HistoryController@list')->name('history');
