@@ -7,6 +7,7 @@ const body = require("body-parser");
 const users = require("./routes/user");
 const search = require("./routes/search");
 const login = require("./routes/login");
+const history = require("./routes/history");
 
 api.use(morgan("dev"));
 api.use(body.urlencoded({ extended: false }));
@@ -15,6 +16,7 @@ api.use(body.json());
 api.use("/user", users);
 api.use("/search", search);
 api.use("/login", login);
+api.use("/history", history);
 
 api.use((error, req, next) => {
   const reqError = new Error("Dados não encontrados!");

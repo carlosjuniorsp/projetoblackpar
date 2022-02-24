@@ -19,9 +19,15 @@
                 <a class="nav-link" href="/list-user">Gerenciamento</a>
             </li>
         @endif
+
         <li class="nav-item">
             <a class="nav-link" href="/search">Buscar Vídeos</a>
         </li>
+        @if (Session::has('type') && Session::get('type') == 1)
+            <li class="nav-item">
+                <a class="nav-link" href="/history">Histórico de busca</a>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="/logout">Sair</a>
         </li>
