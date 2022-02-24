@@ -42,9 +42,12 @@ router.post("/", (req, res, next) => {
                   expiresIn: "5h",
                 }
               );
+
+              results[0].password = null;
+              results[0].token = token;
               return res
                 .status(200)
-                .send({ user: results[0].name, token: token, type: results[0].type });
+                .send(results[0]);
             }
             return res.status(401).send({ msg: "Falha na autenticação", token: null });
           }

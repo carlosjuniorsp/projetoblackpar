@@ -36,12 +36,12 @@ class UserController extends Controller
 
             if ($response->getBody()) {
                 $data = json_decode($response->getBody()->getContents(), true);
-
                 session(
                     [
                         'token' => $data['token'],
-                        'user' => $data['user'],
-                        'type' => $data['type']
+                        'name' => $data['name'],
+                        'type' => $data['type'],
+                        'id' => $data['id'],
                     ]
                 );
                 return redirect('/list-user');
@@ -167,7 +167,6 @@ class UserController extends Controller
             );
 
             if ($response->getBody()) {
-                $request->session()->put('type', $request->input('type'));
                 return redirect('/list-user');
             }
         } catch (ClientException $e) {
@@ -202,5 +201,9 @@ class UserController extends Controller
             $error = json_decode($e->getResponse()->getBody()->getContents(), true);
             return redirect('/list-user');
         }
+    }
+    public function logout(){
+        session()->forget('token');
+        return redirect('/');
     }
 }

@@ -4,7 +4,7 @@
         <span>
             @if (Session::has('token'))
                 <li class="nav-item">
-                    <a class="nav-link disabled">Olá {{ Session::get('user') }}</a>
+                    <a class="nav-link disabled">Olá {{ Session::get('name') }}</a>
                 </li>
             @endif
         </span>

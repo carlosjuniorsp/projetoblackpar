@@ -27,6 +27,9 @@
                     </div>
                 </form>
             </div>
+            @if ($msg ?? '')
+                <span>{{ $msg }}</span>
+            @endif
             @if ($data ?? '')
                 <hr />
                 <h2>Total de vídeos encontrados {{ count($data) }}</h2>
@@ -45,11 +48,10 @@
                         @endforeach
                     </div>
                 </div>
-
+            @endif
         </div>
     </div>
     </div>
-    @endif
     </div>
     </div>
 @stop

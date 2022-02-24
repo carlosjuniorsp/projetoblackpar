@@ -16,10 +16,11 @@ class SearchController extends Controller
      */
     public function search(Request $request)
     {
+        $idUser = session()->get('id');
         try {
             $base_url = env('APP_URL');
             $client = new \GuzzleHttp\Client();
-            $response = $client->get($base_url . '/search/' . $request->input('title') . '/' . $request->input('maxResults'));
+            $response = $client->get($base_url . '/search/userId/' . $idUser . '/' . $request->input('title') . '/' . $request->input('maxResults'));
 
             if ($response->getBody()) {
                 $data = json_decode($response->getBody()->getContents(), true);
@@ -27,7 +28,7 @@ class SearchController extends Controller
             }
         } catch (ClientException $e) {
             $error = json_decode($e->getResponse()->getBody()->getContents(), true);
-            return view('/register', ['msg' => $error['error']]);
+            return view('/search', ['msg' => $error['error']['message']]);
         }
     }
 }
