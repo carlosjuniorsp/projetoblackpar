@@ -107,6 +107,7 @@ router.delete("/delete/:id", verifyUser, (req, res, next) => {
                 .send({ msg: "Usuário deletado com sucesso!" });
             }
           );
+          conn.release();
         }
       }
     );
@@ -149,6 +150,7 @@ router.put("/update/:id", verifyUser, (req, res, next) => {
                 });
               }
             );
+            conn.release();
           });
         }
       }
