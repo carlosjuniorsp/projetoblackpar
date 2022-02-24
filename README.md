@@ -1,2 +1,2 @@
 # projetoblackpar
-Project in node js and php
+Project in node js and laravel
