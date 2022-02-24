@@ -2,7 +2,7 @@
 @section('conteudo')
     <div class="container-sm col-md-4">
         <h3>Tela de login</h3>
-        <form method="post" action="{{ route('dashboard') }}">
+        <form method="post" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
                 <label for="email">Endereço de email</label>

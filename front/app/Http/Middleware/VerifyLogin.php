@@ -17,11 +17,11 @@ class VerifyLogin
     public function handle(Request $request, Closure $next)
     {
         $validationToken = session()->get('token');
-
+        
         if ($validationToken == null) {
             return redirect('/');
         }
-
+        
         return $next($request);
     }
 }

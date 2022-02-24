@@ -22,5 +22,8 @@
         <li class="nav-item">
             <a class="nav-link" href="/search">Buscar Vídeos</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Sair</a>
+        </li>
     </ul>
 @stop

@@ -9,6 +9,10 @@ use Illuminate\Contracts\Session\Session;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('verifyLogin')->except(['login']);
+    }
     /**
      * login a newly created resource in storage.
      * 
